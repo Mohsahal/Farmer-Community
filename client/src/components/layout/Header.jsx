@@ -53,7 +53,7 @@ const Header = () => {
   };
 
   const handleAddProfile = () => {
-    navigate('/ProfilePage');
+    navigate('/index');
   };
 
   const navLinks = [

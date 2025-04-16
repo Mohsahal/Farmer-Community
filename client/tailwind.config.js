@@ -8,7 +8,6 @@ module.exports = {
     "./app/**/*.{js,jsx,ts,tsx}",
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
-  prefix: "",
   theme: {
     container: {
       center: true,
@@ -136,4 +135,4 @@ module.exports = {
     },
   },
   plugins: [plugin],
-}; 
+};
