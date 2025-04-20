@@ -9,7 +9,7 @@ import SignUppage from "./pages/SignUppage.jsx";
 import LoginPage from "./pages/LoginPage";
 import PageNotFound from "./pages/errorpage/PageNotFound";
 import Profile from "./pages/profilepage/profile" 
-import Index from "./pages/profilepage/Index";
+// import Index from "./pages/profilepage/Index";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,7 +32,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/index" element={<Index />} />
+            {/* <Route path="/index" element={<Index />} /> */}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Router>

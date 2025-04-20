@@ -53,7 +53,7 @@ const Header = () => {
   };
 
   const handleAddProfile = () => {
-    navigate('/index');
+    navigate('/profile');
   };
 
   const navLinks = [
@@ -115,8 +115,8 @@ const Header = () => {
               >
                 <DropdownMenuLabel className="font-normal p-2">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none text-farm-green-600">{user?.name}</p>
-                    <p className="text-xs leading-none text-farm-green-700/80">
+                    <p className="text-sm font-medium leading-none text-black">{user?.name}</p>
+                    <p className="text-xs leading-none text-black">
                       {user?.email}
                     </p>
                   </div>

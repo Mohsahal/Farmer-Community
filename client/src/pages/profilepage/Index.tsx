@@ -22,22 +22,22 @@
 
 
 
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import styles from "./Index.module.scss";
+// import { Button } from "@/components/ui/button";
+// import { Link } from "react-router-dom";
+// import styles from "./Index.module.scss";
 
-const Index = () => {
-  return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <h1 className={styles.title}>Welcome to Farmer's Community</h1>
-        <p className={styles.subtitle}>Connect with fellow farmers and share your expertise!</p>
-        <Button asChild className={styles.button}>
-          <Link to="/profile">View Profile</Link>
-        </Button>
-      </div>
-    </div>
-  );
-};
+// const Index = () => {
+//   return (
+//     <div className={styles.container}>
+//       <div className={styles.content}>
+//         <h1 className={styles.title}>Welcome to Farmer's Community</h1>
+//         <p className={styles.subtitle}>Connect with fellow farmers and share your expertise!</p>
+//         <Button asChild className={styles.button}>
+//           <Link to="/profile">View Profile</Link>
+//         </Button>
+//       </div>
+//     </div>
+//   );
+// };
 
-export default Index;
+// export default Index;

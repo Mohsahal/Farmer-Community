@@ -56,8 +56,9 @@ export const handleImageChange = (e, setImageFile) => {
 export const handlePostSubmit = async (postData, setLoading, setNewPost, setImageFile, setPosts, setLiked, userId) => {
   const { content, language, imageFile } = postData;
   
-  if (!content.trim() && !imageFile) {
-    toast.error("Please add text or an image to post.");
+  // Content is required even if there's an image
+  if (!content.trim()) {
+    toast.error("Please add some text to your post.");
     return;
   }
 

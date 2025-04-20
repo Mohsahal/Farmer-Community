@@ -12,7 +12,7 @@ const PostCard = ({ post, onLike, onComment, isLiked, commentText, setCommentTex
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [currentUserName, setCurrentUserName] = useState("");
   const [comments, setComments] = useState([]);
-console.log(comments)
+// console.log(comments)
   useEffect(() => {
     const userToken = localStorage.getItem('user');
     if (userToken) {
