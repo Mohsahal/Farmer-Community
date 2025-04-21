@@ -15,6 +15,7 @@ const SignUppage = () => {
   });
 
   const [errors, setErrors] = useState({});
+  
 
   const validateForm = () => {
     let newErrors = {};
