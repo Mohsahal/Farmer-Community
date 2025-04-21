@@ -4,6 +4,7 @@ const path = require('path');
 
 // Configure multer for image upload
 const storage = multer.diskStorage({
+  
   destination: function (req, file, cb) {
     cb(null, 'uploads/profiles/');
   },

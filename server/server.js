@@ -53,14 +53,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/profiles', profileRoutes);
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    success: false,
-    message: err.message || 'Something went wrong!'
-  });
-});
 
 // **Start Server**
 const PORT = process.env.PORT || 5000;
