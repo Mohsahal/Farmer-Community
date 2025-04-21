@@ -31,39 +31,26 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-interface ProfileEditProps {
+interface AddProfileProps {
   onClose: () => void;
-  farmerData: {
-    name: string;
-    location: string;
-    experience: string;
-    specialties: string[];
-    crops: string[];
-    contact: {
-      email: string;
-      phone: string;
-    };
-    image?: string;
-  };
-  mode?: 'edit' | 'add';
 }
 
-export function ProfileEdit({ onClose, farmerData, mode = 'edit' }: ProfileEditProps) {
+export function AddProfile({ onClose }: AddProfileProps) {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // const [previewImage, setPreviewImage] = useState<string | null>(farmerData.image || null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: farmerData.name,
-      location: farmerData.location,
-      experience: farmerData.experience,
-      specialties: farmerData.specialties,
-      crops: farmerData.crops,
+      name: "",
+      location: "",
+      experience: "",
+      specialties: [],
+      crops: [],
       contact: {
-        email: farmerData.contact.email,
-        phone: farmerData.contact.phone,
+        email: "",
+        phone: "",
       },
       image: null,
     },
@@ -108,25 +95,25 @@ export function ProfileEdit({ onClose, farmerData, mode = 'edit' }: ProfileEditP
         formData.append("image", values.image);
       }
 
-      const response = await axios.put("/api/profiles", formData, {
+      const response = await axios.post("/api/profiles", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         toast({
           title: "Success",
-          description: "Profile updated successfully",
+          description: "Profile created successfully",
           variant: "default",
         });
         onClose();
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
+      console.error("Error creating profile:", error);
       toast({
         title: "Error",
-        description: "Failed to update profile. Please try again.",
+        description: "Failed to create profile. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -139,9 +126,9 @@ export function ProfileEdit({ onClose, farmerData, mode = 'edit' }: ProfileEditP
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         {/* Header */}
         <div className="border-b pb-6">
-          <h2 className="text-xl font-semibold">Edit Profile</h2>
+          <h2 className="text-xl font-semibold">Add New Profile</h2>
           <p className="text-sm text-muted-foreground mt-1">
-            Update your farming profile details below.
+            Fill in your farming profile details below.
           </p>
         </div>
 
@@ -157,12 +144,12 @@ export function ProfileEdit({ onClose, farmerData, mode = 'edit' }: ProfileEditP
                 className="w-full h-full rounded-full border-2 border-dashed border-gray-300 
                           flex flex-col items-center justify-center cursor-pointer hover:border-gray-400
                           transition-colors relative overflow-hidden bg-white"
-                onClick={() => document.getElementById("profile-image-edit")?.click()}
+                onClick={() => document.getElementById("profile-image")?.click()}
               >
                 {previewImage ? (
                   <img
                     src={previewImage}
-                    alt=""
+                    alt="Profile preview"
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -187,7 +174,7 @@ export function ProfileEdit({ onClose, farmerData, mode = 'edit' }: ProfileEditP
               </div>
               <input
                 type="file"
-                id="profile-image-edit"
+                id="profile-image"
                 accept="image/*"
                 onChange={handleImageChange}
                 className="hidden"
@@ -316,7 +303,7 @@ export function ProfileEdit({ onClose, farmerData, mode = 'edit' }: ProfileEditP
               disabled={isSubmitting}
               className="bg-black text-white hover:bg-gray-800"
             >
-              {isSubmitting ? "Saving..." : "Save Changes"}
+              {isSubmitting ? "Creating..." : "Create Profile"}
             </Button>
           </div>
         </div>
@@ -324,5 +311,3 @@ export function ProfileEdit({ onClose, farmerData, mode = 'edit' }: ProfileEditP
     </Form>
   );
 } 
-
-

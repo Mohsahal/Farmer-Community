@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,11 +6,15 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Edit, MapPin, Phone, Mail, Tractor, Wheat } from "lucide-react";
+import { Edit, MapPin, Phone, Mail, Tractor, Wheat, Plus } from "lucide-react";
 import { ProfileEdit } from "@/components/profile/ProfileEdit";
+import { AddProfile } from "@/components/profile/AddProfile";
 import styles from "./Profile.module.scss";
 
 const Profile = () => {
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+
   const farmerData = {
     name: "John Deere",
     location: "Midwest Valley, CA",
@@ -21,6 +25,7 @@ const Profile = () => {
       email: "john.deere@farmmail.com",
       phone: "(555) 123-4567",
     },
+    image: "https://images.unsplash.com/photo-1560982037-1b99d8372384?q=80&w=200&h=200",
   };
 
   return (
@@ -28,30 +33,58 @@ const Profile = () => {
       <div className={styles.content}>
         <header className={styles.header}>
           <h1 className={styles.title}>Farmer Profile</h1>
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="default" className={styles.editButton}>
-                <Edit className="w-4 h-4" /> Edit Profile
-              </Button>
-            </SheetTrigger>
-            <SheetContent className={styles.sheetContent}>
-              <SheetHeader>
-                <SheetTitle className={styles.sheetTitle}>Edit Profile</SheetTitle>
-                <SheetDescription className={styles.sheetDescription}>
-                  Update your farming profile details below.
-                </SheetDescription>
-              </SheetHeader>
-              <ProfileEdit farmerData={farmerData} />
-            </SheetContent>
-          </Sheet>
+          <div className={styles.actions}>
+            <Sheet open={isAddOpen} onOpenChange={setIsAddOpen}>
+              <SheetTrigger asChild>
+                <Button variant="default" className={styles.addButton}>
+                  <Plus className="w-4 h-4 mr-2" /> Add Profile
+                </Button>
+              </SheetTrigger>
+              <SheetContent 
+                side="right" 
+                className="w-full max-w-md p-0 bg-white border-l shadow-none flex flex-col"
+                style={{ backgroundColor: 'white' }}
+              >
+                <div className="flex-1 overflow-y-auto">
+                  <div className="px-6 py-4">
+                    <AddProfile onClose={() => setIsAddOpen(false)} />
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+
+            <Sheet open={isEditOpen} onOpenChange={setIsEditOpen}>
+              <SheetTrigger asChild>
+                <Button variant="outline" className={styles.editButton}>
+                  <Edit className="w-4 h-4 mr-2" /> Edit Profile
+                </Button>
+              </SheetTrigger>
+              <SheetContent 
+                side="right" 
+                className="w-full max-w-md p-0 bg-white border-l shadow-none flex flex-col"
+                style={{ backgroundColor: 'white' }}
+              >
+                <div className="flex-1 overflow-y-auto">
+                  <div className="px-6 py-4">
+                    <ProfileEdit 
+                      farmerData={farmerData} 
+                      mode="edit" 
+                      onClose={() => setIsEditOpen(false)} 
+                    />
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </header>
 
         <Card className={styles.profileCard}>
           <CardContent className={styles.profileCardContent}>
             <Avatar className={styles.avatar}>
               <AvatarImage
-                src="https://images.unsplash.com/photo-1560982037-1b99d8372384?q=80&w=200&h=200"
+                src={farmerData.image}
                 alt="Farmer profile"
+                className={styles.avatarImage}
               />
               <AvatarFallback>JD</AvatarFallback>
             </Avatar>
@@ -147,3 +180,5 @@ const Profile = () => {
 };
 
 export default Profile;
+
+
