@@ -15,6 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Upload } from "lucide-react";
 import { useState } from "react";
 import axios from "axios";
+import { profileService } from '@/services/api';
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -34,6 +35,7 @@ type FormData = z.infer<typeof formSchema>;
 interface ProfileEditProps {
   onClose: () => void;
   farmerData: {
+    _id: string;
     name: string;
     location: string;
     experience: string;
@@ -108,25 +110,19 @@ export function ProfileEdit({ onClose, farmerData, mode = 'edit' }: ProfileEditP
         formData.append("image", values.image);
       }
 
-      const response = await axios.put("/api/profiles", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await profileService.updateProfile(farmerData._id, formData);
 
-      if (response.status === 200) {
-        toast({
-          title: "Success",
-          description: "Profile updated successfully",
-          variant: "default",
-        });
-        onClose();
-      }
-    } catch (error) {
+      toast({
+        title: "Success",
+        description: response.message,
+        variant: "default",
+      });
+      onClose();
+    } catch (error: any) {
       console.error("Error updating profile:", error);
       toast({
         title: "Error",
-        description: "Failed to update profile. Please try again.",
+        description: error.response?.data?.message || "Failed to update profile. Please try again.",
         variant: "destructive",
       });
     } finally {

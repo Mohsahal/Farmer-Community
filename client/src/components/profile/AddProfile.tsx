@@ -12,9 +12,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { Upload } from "lucide-react";
 import { useState } from "react";
-import axios from "axios";
+import { profileService } from '@/services/api';
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -95,25 +94,19 @@ export function AddProfile({ onClose }: AddProfileProps) {
         formData.append("image", values.image);
       }
 
-      const response = await axios.post("/api/profiles", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await profileService.createProfile(formData);
 
-      if (response.status === 201) {
-        toast({
-          title: "Success",
-          description: "Profile created successfully",
-          variant: "default",
-        });
-        onClose();
-      }
-    } catch (error) {
+      toast({
+        title: "Success",
+        description: response.message,
+        variant: "default",
+      });
+      onClose();
+    } catch (error: any) {
       console.error("Error creating profile:", error);
       toast({
         title: "Error",
-        description: "Failed to create profile. Please try again.",
+        description: error.response?.data?.message || "Failed to create profile. Please try again.",
         variant: "destructive",
       });
     } finally {
