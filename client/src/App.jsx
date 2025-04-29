@@ -10,8 +10,14 @@ import LoginPage from "./pages/LoginPage";
 import PageNotFound from "./pages/errorpage/PageNotFound";
 import Profile from "./pages/profilepage/profile" 
 // import Index from "./pages/profilepage/Index";
-
+import PriceForecasting from "./pages/PriceForecasting";
+import CropRecommendation from "./pages/CropRecommendation";
+import HomePage from "./pages/Home";
+import FertilizerRecommendation from "./pages/FertilizerRecommendation";
+import DiseaseDetection from "./pages/DiseaseDectection";
+import Chatbot from "./pages/Chatbot";
 const queryClient = new QueryClient({
+
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
@@ -19,6 +25,7 @@ const queryClient = new QueryClient({
     },
   },
 });
+
 
 function App() {
   return (
@@ -29,11 +36,21 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<SignUppage />} />
+            
             <Route path="/login" element={<LoginPage />} />
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/price-forecasting" element={<PriceForecasting />} />
+            <Route path="/crop-recommendation" element={<CropRecommendation />} />
+            <Route path="/fertilizer-recommendation" element={<FertilizerRecommendation />} />
+            <Route path="/disease-detection" element={<DiseaseDetection />} />
+            <Route path="/chatbot" element={<Chatbot />} />
+            
             {/* <Route path="/index" element={<Index />} /> */}
+
             <Route path="*" element={<PageNotFound />} />
+
           </Routes>
         </Router>
       </TooltipProvider>

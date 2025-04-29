@@ -82,13 +82,13 @@ const CommunityPage = () => {
   }, [navigate]);
 
 
-// After successful login, replace the login page history
-window.history.replaceState(null, null, window.location.href);
+// // After successful login, replace the login page history
+// window.history.replaceState(null, null, window.location.href);
 
-// Optional: Prevent navigating back
-window.onpopstate = function(event) {
-    window.history.go(1); // Always move forward
-};
+// // Optional: Prevent navigating back
+// window.onpopstate = function(event) {
+//     window.history.go(1); // Always move forward
+// };
   // Handle image selection
   const handleImageSelection = (e) => {
     handleImageChange(e, setImageFile);
