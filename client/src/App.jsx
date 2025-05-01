@@ -1,12 +1,11 @@
-import "./App.css";
+
 import CommunityPage from "./pages/CommunityPage";
 import { Toaster } from "./components/ui/toaster";
 import { Toaster as Sonner } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SignUppage from "./pages/SignUppage.jsx";
-import LoginPage from "./pages/LoginPage";
+
 import PageNotFound from "./pages/errorpage/PageNotFound";
 import Profile from "./pages/profilepage/profile" 
 // import Index from "./pages/profilepage/Index";
@@ -18,6 +17,9 @@ import DiseaseDetection from "./pages/DiseaseDectection";
 import Chatbot from "./pages/Chatbot";
 import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
+import Signup from "./pages/SignUppage";
+import Login from "./pages/LoginPage";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,8 +38,8 @@ function App() {
         <Sonner />
         <Router>
           <Routes>
-            <Route path="/" element={<PublicRoute><SignUppage /></PublicRoute>} />
-            <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+            <Route path="/" element={<PublicRoute><Signup /></PublicRoute>} />
+            <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
             <Route path="/community" element={<PrivateRoute><CommunityPage /></PrivateRoute>} />
             <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
             <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />

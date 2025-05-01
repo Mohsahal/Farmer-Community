@@ -1,21 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /* 
 @import "tailwindcss";
-@import "tw-animate-css"; */
+@import "tw-animate-css"; 
+*/
 
 @custom-variant dark (&:is(.dark *));
+
+/* === FIRST FILE STYLES === */
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -128,5 +132,126 @@
   }
   body {
     @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))];
+  }
+}
+
+/* === SECOND FILE STYLES === */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 120 29% 40%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 45 91% 60%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 35 35% 53%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 120 29% 40%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 120 29% 40%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 45 91% 60%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 35 35% 53%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 120 29% 40%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .animated-gradient-bg {
+    @apply bg-gradient-to-br from-farm-cream via-farm-light-green to-farm-green-500 bg-[length:400%_400%] animate-gradient-flow;
+  }
+
+  .auth-container {
+    @apply flex min-h-screen;
+  }
+
+  .auth-form-container {
+    @apply w-full md:w-2/5 flex flex-col items-center justify-center p-6 md:p-10;
+  }
+
+  .features-container {
+    @apply hidden md:flex md:w-3/5 p-10 flex-col justify-center items-center text-white relative overflow-hidden;
+  }
+
+  .dark-green-gradient {
+    @apply bg-gradient-to-br from-farm-dark-green to-[#1a3a1a];
+    background-size: 200% 200%;
+    animation: gradientAnimation 15s ease infinite;
+  }
+
+  .auth-card {
+    @apply w-full max-w-md p-8 rounded-2xl shadow-lg bg-white/90 backdrop-blur-sm border border-white/20;
+  }
+
+  .social-login-button {
+    @apply flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg border transition-all duration-200;
+  }
+
+  .feature-card {
+    @apply relative p-6 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 transition-all duration-300 hover:bg-white/20 overflow-hidden;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2.5 bg-white/80 border rounded-lg focus:ring-2 focus:ring-farm-green-500 focus:border-transparent transition-all duration-200;
+  }
+
+  .floating-circle {
+    @apply absolute rounded-full opacity-20 animate-float;
+  }
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 }

@@ -1,9 +1,8 @@
-
-
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { RocketIcon } from "@radix-ui/react-icons";
+import { Link } from "react-router-dom";
 
 export function PageNotFound() {
   const navigate = useNavigate();
@@ -43,6 +42,13 @@ export function PageNotFound() {
           <RocketIcon className="h-4 w-4" />
           Return Home
         </Button>
+
+        <p className="text-center text-sm mt-4 text-farm-green-700">
+          Already have an account?{" "}
+          <Link to="/login" className="text-farm-green-500 hover:text-farm-green-600 hover:underline">
+            Sign in
+          </Link>
+        </p>
       </div>
     </motion.div>
   );
