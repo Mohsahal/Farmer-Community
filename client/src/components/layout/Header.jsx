@@ -4,7 +4,7 @@ import { Menu, X, LogOut, User, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { logout } from "@/lib/utils";
-import { toast } from "react-toastify";
+import { useToast } from "@/hooks/use-toast";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,6 +21,7 @@ const Header = () => {
   const [user, setUser] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,27 +37,26 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-
-  // console.log(user)
-
   const handleLogout = async () => {
     try {
       await logout();
-      toast.success("Logged out successfully", {
-        position: "top-right",
-        autoClose: 1500,
+      toast({
+        title: "Success",
+        description: "Logged out successfully",
+        variant: "success",
       });
-      // Use replace to prevent going back to authenticated pages
       navigate("/login", { replace: true });
     } catch (error) {
       console.error("Logout error:", error);
-      toast.error("Failed to logout. Please try again.");
+      toast({
+        title: "Error",
+        description: "Failed to logout. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
-  const handleAddAccount = () => {
-    navigate('/');
-  };
+ 
 
   const handleAddProfile = () => {
     navigate('/profile');
@@ -74,16 +74,16 @@ const Header = () => {
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 w-full border-b border-farm-green-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 p-1 ml-2 ",
+      "sticky top-0 z-50 w-full border-b border-farm-green-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 p-1 ml-2",
       scrolled && "shadow-sm"
     )}>
-      <div className=" mx-auto max-w-12xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-12xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 justify-between">
           <div className="flex items-center gap-6 md:gap-10">
-            <Link to="" className="flex  space-x-2 ml-10">
+            <Link to="" className="flex space-x-2 ml-10">
               <span className="font-bold text-xl text-farm-green-600">AgroVerse</span>
             </Link>
-            <nav className="hidden md:flex  p-12 gap-6  ml-12">
+            <nav className="hidden md:flex p-12 gap-6 ml-12">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -101,11 +101,13 @@ const Header = () => {
             </nav>
           </div>
 
-          
           <div className="flex items-center">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full hover:bg-farm-green-50">
+                <Button 
+                  variant="ghost" 
+                  className="relative h-8 w-8 rounded-full hover:bg-farm-green-50 focus:ring-2 focus:ring-farm-green-100"
+                >
                   <Avatar className="h-9 w-9 border border-farm-green-100">
                     <AvatarImage src={user?.avatar} alt={user?.name} />
                     <AvatarFallback className="bg-farm-green-100 text-farm-green-600 text-lg font-bold">
@@ -116,8 +118,9 @@ const Header = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent 
                 className="w-56 rounded-md border border-farm-green-100 bg-white shadow-lg" 
-                align="end" 
-                forceMount
+                align="end"
+                sideOffset={5}
+                alignOffset={0}
               >
                 <DropdownMenuLabel className="font-normal p-2">
                   <div className="flex flex-col space-y-1">
@@ -128,7 +131,6 @@ const Header = () => {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="h-px bg-farm-green-100" />
-
                 
                 <DropdownMenuItem 
                   className="p-2 text-farm-green-600 hover:bg-farm-green-50 cursor-pointer focus:bg-farm-green-50 focus:text-farm-green-700" 
@@ -138,15 +140,7 @@ const Header = () => {
                   <span>Add a Profile</span>
                 </DropdownMenuItem>
 
-
-                <DropdownMenuItem 
-                  className="p-2 text-farm-green-600 hover:bg-farm-green-50 cursor-pointer focus:bg-farm-green-50 focus:text-farm-green-700" 
-                  onClick={handleAddAccount}
-                >
-                  <UserPlus className="mr-2 h-4 w-4" />
-                  <span>Add a Account</span>
-                </DropdownMenuItem>
-
+              
 
                 <DropdownMenuItem 
                   onClick={handleLogout} 
