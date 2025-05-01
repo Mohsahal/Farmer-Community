@@ -16,8 +16,10 @@ import HomePage from "./pages/Home";
 import FertilizerRecommendation from "./pages/FertilizerRecommendation";
 import DiseaseDetection from "./pages/DiseaseDectection";
 import Chatbot from "./pages/Chatbot";
-const queryClient = new QueryClient({
+import PublicRoute from "./components/PublicRoute";
+import PrivateRoute from "./components/PrivateRoute";
 
+const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
@@ -25,7 +27,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-
 
 function App() {
   return (
@@ -35,17 +36,16 @@ function App() {
         <Sonner />
         <Router>
           <Routes>
-            <Route path="/" element={<SignUppage />} />
-            
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/community" element={<CommunityPage />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/price-forecasting" element={<PriceForecasting />} />
-            <Route path="/crop-recommendation" element={<CropRecommendation />} />
-            <Route path="/fertilizer-recommendation" element={<FertilizerRecommendation />} />
-            <Route path="/disease-detection" element={<DiseaseDetection />} />
-            <Route path="/chatbot" element={<Chatbot />} />
+            <Route path="/" element={<PublicRoute><SignUppage /></PublicRoute>} />
+            <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+            <Route path="/community" element={<PrivateRoute><CommunityPage /></PrivateRoute>} />
+            <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+            <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
+            <Route path="/price-forecasting" element={<PrivateRoute><PriceForecasting /></PrivateRoute>} />
+            <Route path="/crop-recommendation" element={<PrivateRoute><CropRecommendation /></PrivateRoute>} />
+            <Route path="/fertilizer-recommendation" element={<PrivateRoute><FertilizerRecommendation /></PrivateRoute>} />
+            <Route path="/disease-detection" element={<PrivateRoute><DiseaseDetection /></PrivateRoute>} />
+            <Route path="/chatbot" element={<PrivateRoute><Chatbot /></PrivateRoute>} />
             
             {/* <Route path="/index" element={<Index />} /> */}
 
