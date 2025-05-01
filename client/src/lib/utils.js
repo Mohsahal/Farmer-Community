@@ -22,8 +22,11 @@ export async function logout() {
     
     if (response.ok) {
       console.log("logout: Logout successful");
-      // Clear any local storage data
+      // Clear all authentication related data from localStorage
       localStorage.removeItem("user");
+      localStorage.removeItem("isLoggedIn");
+      // Clear any other auth-related data if needed
+      localStorage.clear();
     } else {
       console.error("logout: Logout failed with status:", response.status);
     }

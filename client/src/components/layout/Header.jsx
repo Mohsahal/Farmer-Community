@@ -36,17 +36,20 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLogout = () => {
-    logout();
-    toast.success("Logged out successfully", {
-      position: "top-right",
-      autoClose: 1500,
-    });
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast.success("Logged out successfully", {
+        position: "top-right",
+        autoClose: 1500,
+      });
+      // Use replace to prevent going back to authenticated pages
+      navigate("/login", { replace: true });
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast.error("Failed to logout. Please try again.");
+    }
   };
-
-
-
 
   const handleAddAccount = () => {
     navigate('/');

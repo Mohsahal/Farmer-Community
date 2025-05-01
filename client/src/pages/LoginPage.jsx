@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
@@ -7,6 +7,14 @@ import axios from "axios";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (isLoggedIn) {
+      navigate("/community", { replace: true });
+    }
+  }, [navigate]);
+
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -55,19 +63,15 @@ const LoginPage = () => {
       
       // Store user data in localStorage for easy access
       localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("isLoggedIn", "true");
       console.log("User data stored in localStorage");
       
       toast.success(response.data.message || "Login successful!", {
         autoClose: 1500,
       });
       
-      console.log("Toast displayed, preparing to navigate to /community");
-      
-      // Navigate after a short delay to ensure the toast is visible
-      setTimeout(() => {
-        console.log("Timeout triggered, navigating to /community");
-        navigate("/community");
-      }, 1000);
+      console.log("Toast displayed, navigating to /community");
+      navigate("/community", { replace: true });
     } catch (error) {
       console.error("Login error details:", error);
       toast.error(error.response?.data?.message || "Login failed!");
@@ -77,7 +81,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen  w-full flex items-center justify-center bg-gray-100 px-4  ">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100 px-4">
       <ToastContainer position="top-right" autoClose={3000} />
 
       <motion.div
@@ -158,3 +162,5 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+
