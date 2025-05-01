@@ -103,7 +103,7 @@ const Header = () => {
 
           <div className="flex items-center">
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger>
                 <Button 
                   variant="ghost" 
                   className="relative h-8 w-8 rounded-full hover:bg-farm-green-50 focus:ring-2 focus:ring-farm-green-100"
@@ -120,7 +120,6 @@ const Header = () => {
                 className="w-56 rounded-md border border-farm-green-100 bg-white shadow-lg" 
                 align="end"
                 sideOffset={5}
-                alignOffset={0}
               >
                 <DropdownMenuLabel className="font-normal p-2">
                   <div className="flex flex-col space-y-1">
