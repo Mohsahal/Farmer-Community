@@ -70,6 +70,20 @@ export const profileService = {
   },
 };
 
+export const authService = {
+  login: async (credentials: { email: string; password: string }) => {
+    try {
+      console.log('Attempting login with:', { email: credentials.email });
+      const response = await jsonApi.post('/auth/login', credentials);
+      console.log('Raw login response:', response);
+      return response.data;
+    } catch (error) {
+      console.error('Login service error:', error);
+      throw error;
+    }
+  },
+};
+
 // Add response interceptor for logging
 jsonApi.interceptors.response.use(
   (response) => {

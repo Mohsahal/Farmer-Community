@@ -4,19 +4,62 @@ import AuthForm from '@/components/AuthForm';
 import FeatureShowcase from '@/components/FeatureShowcase';
 import { Leaf } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { authService } from '@/services/api';
 
 const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const handleLogin = (data: any) => {
-    console.log('Login data:', data);
-    toast({
-      title: "Login Attempt",
-      description: "This is a demo. Authentication would happen here.",
-    });
-    // In a real app, this would authenticate the user
-    // navigate('/dashboard');
+  const handleLogin = async (data: any) => {
+    try {
+      console.log('Starting login process...');
+      const response = await authService.login({ email: data.email, password: data.password });
+      console.log('Login response received:', response);
+      
+      // Check if we have a valid response
+      if (response) {
+        console.log('Setting login state...');
+        // Store any auth data
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+        }
+        if (response.user) {
+          localStorage.setItem('user', JSON.stringify(response.user));
+        }
+        
+        // Set login state
+        localStorage.setItem('isLoggedIn', 'true');
+        console.log('Login state set, current localStorage:', {
+          isLoggedIn: localStorage.getItem('isLoggedIn'),
+          token: localStorage.getItem('token'),
+          user: localStorage.getItem('user')
+        });
+        
+        // Show success message
+        toast({
+          title: 'Login Successful',
+          description: 'Welcome to AgroVerse!',
+        });
+
+        // Force navigation
+        console.log('Attempting navigation to /community...');
+        window.location.href = '/community';
+      } else {
+        console.error('Invalid login response:', response);
+        toast({
+          title: 'Login Failed',
+          description: 'Invalid response from server',
+          variant: 'destructive',
+        });
+      }
+    } catch (error: any) {
+      console.error('Login error:', error);
+      toast({
+        title: 'Login Error',
+        description: error?.response?.data?.message || 'An error occurred during login.',
+        variant: 'destructive',
+      });
+    }
   };
   
 

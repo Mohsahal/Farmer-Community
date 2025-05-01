@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Mail, Lock, User, Phone, Facebook, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, User, Facebook, Eye, EyeOff } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface AuthFormProps {
@@ -17,8 +17,7 @@ const AuthForm = ({ isSignUp = false, onSubmit }: AuthFormProps) => {
     email: '',
     password: '',
     confirmPassword: '',
-    name: '',
-    phone: ''
+    name: ''
   });
   const [passwordMatch, setPasswordMatch] = useState(true);
 
@@ -86,12 +85,12 @@ const AuthForm = ({ isSignUp = false, onSubmit }: AuthFormProps) => {
             Email
           </Label>
           <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Mail className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
             <Input
               id="email"
               name="email"
               type="email"
-              placeholder="name@example.com"
+              placeholder="you@example.com"
               required
               className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-farm-green-500 focus:border-farm-green-500 hover:border-farm-green-500 transition-all duration-200 placeholder-gray-400 shadow-sm"
               value={formData.email}
@@ -101,23 +100,16 @@ const AuthForm = ({ isSignUp = false, onSubmit }: AuthFormProps) => {
         </div>
 
         <div className="space-y-2">
-          <div className="flex justify-between">
-            <Label htmlFor="password" className="text-sm font-medium">
-              Password
-            </Label>
-            {!isSignUp && (
-              <Link to="/forgot-password" className="text-xs text-farm-green-500 hover:text-farm-dark-green font-medium">
-                Forgot password?
-              </Link>
-            )}
-          </div>
+          <Label htmlFor="password" className="text-sm font-medium">
+            Password
+          </Label>
           <div className="relative">
             <Lock className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
             <Input
               id="password"
               name="password"
               type={showPassword ? 'text' : 'password'}
-              placeholder={isSignUp ? 'Create a password' : 'Enter your password'}
+              placeholder="Enter your password"
               required
               className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-farm-green-500 focus:border-farm-green-500 hover:border-farm-green-500 transition-all duration-200 placeholder-gray-400 shadow-sm"
               value={formData.password}
@@ -167,26 +159,6 @@ const AuthForm = ({ isSignUp = false, onSubmit }: AuthFormProps) => {
           </div>
         )}
 
-        {isSignUp && (
-          <div className="space-y-2">
-            <Label htmlFor="phone" className="text-sm font-medium">
-              Phone Number (Optional)
-            </Label>
-            <div className="relative">
-              <Phone className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
-              <Input
-                id="phone"
-                name="phone"
-                type="tel"
-                placeholder="+1 (555) 000-0000"
-                className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-farm-green-500 focus:border-farm-green-500 hover:border-farm-green-500 transition-all duration-200 placeholder-gray-400 shadow-sm"
-                value={formData.phone}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-        )}
-
         <Button
           type="submit"
           className="w-full bg-farm-green-500 hover:bg-farm-green-600 text-white font-semibold py-2.5 rounded-lg shadow transition"
@@ -222,7 +194,7 @@ const AuthForm = ({ isSignUp = false, onSubmit }: AuthFormProps) => {
             type="button"
             className="social-login-button bg-white hover:bg-gray-50 border-gray-300"
           >
-            <Phone className="h-5 w-5 text-farm-green-500" />
+            <User className="h-5 w-5 text-farm-green-500" />
           </button>
         </div>
       </div>

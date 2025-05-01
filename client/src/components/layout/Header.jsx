@@ -36,6 +36,9 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+
+  // console.log(user)
+
   const handleLogout = async () => {
     try {
       await logout();
