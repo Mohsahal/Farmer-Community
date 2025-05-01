@@ -39,11 +39,15 @@ const Login = () => {
         toast({
           title: 'Login Successful',
           description: 'Welcome to AgroVerse!',
+          variant: 'success',
+          duration: 2000 // Show toast for 2 seconds
         });
 
-        // Force navigation
-        console.log('Attempting navigation to /community...');
-        window.location.href = '/community';
+        // Wait for 1.5 seconds before navigating to ensure toast is visible
+        setTimeout(() => {
+          console.log('Attempting navigation to /community...');
+          window.location.href = '/community';
+        }, 1500);
       } else {
         console.error('Invalid login response:', response);
         toast({

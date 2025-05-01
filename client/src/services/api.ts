@@ -82,6 +82,18 @@ export const authService = {
       throw error;
     }
   },
+
+  signup: async (userData: { name: string; email: string; password: string }) => {
+    try {
+      console.log('Attempting signup with:', { email: userData.email });
+      const response = await jsonApi.post('/auth/register', userData);
+      console.log('Raw signup response:', response);
+      return response.data;
+    } catch (error) {
+      console.error('Signup service error:', error);
+      throw error;
+    }
+  }
 };
 
 // Add response interceptor for logging
